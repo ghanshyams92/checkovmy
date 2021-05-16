@@ -9,11 +9,11 @@ pipeline {
     stages {
         stage('test') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github', url: 'git@github.com:bridgecrewio/checkov.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github', url: 'git@github.com:ghanshyams92/tazt.git']]])
                 script {
                     sh "pipenv install"
                     sh "pipenv run pip install checkov"
-                    sh "pipenv run checkov --directory tests/terraform/runner/resources/example -o junitxml > result.xml || true"
+                    sh "pipenv run checkov --directory tests/terra/ -o junitxml > result.xml || true"
                     junit "result.xml"
                 }
             }
